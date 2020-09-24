@@ -1,0 +1,14 @@
+### Python ###
+.idea/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+env/
+
+### Project specific ###
+settings_local.py
+
+### OS specific ###
+.DS_Store
