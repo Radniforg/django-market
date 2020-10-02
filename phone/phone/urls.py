@@ -1,4 +1,4 @@
-"""Phones URL Configuration
+"""phone URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Market import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cart/', views.cart, name='cart'),
+    path('empty/', views.empty, name='empty'),
+    path('', views.index, name='index'),
+    path('login/', views.login, name='login'),
+    path('phone/', views.phone, name='phone'),
+    path('smart/', views.smart, name='smart'),
 ]
