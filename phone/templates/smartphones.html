@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en" >
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -144,8 +145,8 @@
   <p>© Просто магазин 2018</p>
 </footer>
 
-<script src="./static/jquery-3.3.1.slim.min.js"></script>
-<script src="./static/popper.min.js"></script>
-<script src="./static/bootstrap.min.js"></script>
+<script src="{%static 'jquery-3.3.1.slim.min.js' %}"></script>
+<script src="{%static 'popper.min.js' %}"></script>
+<script src="{%static 'bootstrap.min.js' %}"></script>
 </body>
 </html>

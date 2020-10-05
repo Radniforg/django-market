@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from Market import views
 
 urlpatterns = [
@@ -23,6 +24,7 @@ urlpatterns = [
     path('empty/', views.empty, name='empty'),
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('phone/', views.phone, name='phone'),
     path('smart/', views.smart, name='smart'),
 ]
