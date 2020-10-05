@@ -23,18 +23,18 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="./">
+        <a class="nav-link" href="../">
           Главная <span class="sr-only">(current)</span></a>
       </li>
 
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="{% url 'empty' %}" id="dropdown01"
+        <a class="nav-link dropdown-toggle" href="{% url 'empty_section' %}" id="dropdown01"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Гаджеты</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
 
-          <a class="dropdown-item" href="{% url 'smart' %}">
+          <a class="dropdown-item" href="{% url 'smartphones' %}">
             Сматрфоны</a>
 
         </div>
@@ -42,7 +42,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link" href="./accessories/">
+        <a class="nav-link" href="../accessories/">
           Аксесcуары</a>
       </li>
 
@@ -154,9 +154,9 @@
 
 </main>
 
-<script src="{%static 'jquery-3.3.1.slim.min.js' %}"></script>
-<script src="{%static 'popper.min.js' %}"></script>
-<script src="{%static 'bootstrap.min.js' %}"></script>
+<script src="../static/jquery-3.3.1.slim.min.js"></script>
+<script src="../static/popper.min.js"></script>
+<script src="../static/bootstrap.min.js"></script>
 
 </body>
 </html>

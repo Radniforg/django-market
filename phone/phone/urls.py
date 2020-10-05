@@ -21,10 +21,10 @@ from Market import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', views.cart, name='cart'),
-    path('empty/', views.empty, name='empty'),
+    path('empty_section/', views.empty, name='empty_section'),
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('phone/', views.phone, name='phone'),
-    path('smart/', views.smart, name='smart'),
+    path('smartphones/', views.smart, name='smartphones'),
 ]
