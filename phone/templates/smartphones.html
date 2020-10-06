@@ -65,9 +65,26 @@
 
   <div class="container">
     <!-- Example row of columns -->
+    <h1>{{category.name}}</h1>
+    <div class="row">
+      {% for product in test %}
 
-    <h1>Смартфоны</h1>
 
+        <div class="col-md-4">
+          <h2>{{product.name}}</h2>
+
+          <a href="../phone">
+
+            <img src="../static/{{product.picture_link}}" width="180">
+
+          </a>
+
+          <form>
+            <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
+          </form>
+
+        </div>
+      {% endfor %}
     <div class="row">
 
 

@@ -68,6 +68,9 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
+        {% for cat in pretext %}
+          <h3>{{cat.id}}</h3>
+        {% endfor %}
         <h2>{{text}}</h2>
 
         <img src="../static/{{pict}}" width="120">

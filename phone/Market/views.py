@@ -16,10 +16,17 @@ def login(request):
 
 def phone(request):
     test_subject = Product.objects.first()
+    smol_test = Category.objects.all()
     return render(request, 'phone.html',
                   context={'text': test_subject.name,
                            'pict': test_subject.picture_link,
-                           'desc': test_subject.information},)
+                           'desc': test_subject.information,
+                           'pretext': smol_test},)
 
 def smart(request):
-    return render(request, 'smartphones.html')
+    test_category_id = 1
+    test_subject = Product.objects.filter(category_id= test_category_id)
+    category_name = Category.objects.get(id= test_category_id)
+    return render(request, 'smartphones.html',
+                  context = {'test': test_subject,
+                             'category': category_name})

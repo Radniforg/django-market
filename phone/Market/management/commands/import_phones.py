@@ -16,8 +16,8 @@ class Command(BaseCommand):
             next(phone_reader)
 
             for line in phone_reader:
-                product = Product(id=line[0], name=line[1],
-                              image=line[2], information=line[3], category_id=line[4])
+                product = Product(name=line[0],
+                              picture_link=line[1], information=line[2], category_id=line[3])
                 product.save()
                 # TODO: Добавьте сохранение модели
 
