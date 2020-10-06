@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from datetime import date
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 # Create your models here.
 
@@ -46,8 +47,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    def __str__(self):
-        return self.name
 
 class Product(models.Model):
     name = models.CharField(max_length=64)
@@ -55,6 +54,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     information = models.TextField()
     date = models.DateField(default=date.today())
+    timezone = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
         return self.name
