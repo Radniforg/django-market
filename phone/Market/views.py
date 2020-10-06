@@ -15,13 +15,12 @@ def login(request):
     return render(request, 'login.html')
 
 def phone(request):
-    test_subject = Product.objects.first()
-    smol_test = Category.objects.all()
+    product = request.GET.get('product')
+    test_subject = Product.objects.get(id= product)
     return render(request, 'phone.html',
                   context={'text': test_subject.name,
                            'pict': test_subject.picture_link,
-                           'desc': test_subject.information,
-                           'pretext': smol_test},)
+                           'desc': test_subject.information,})
 
 def smart(request):
     test_category_id = 1
