@@ -68,11 +68,11 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
-        <h2>Nexus 5x</h2>
+        <h2>{{text}}</h2>
 
-        <img src="{% static 'nexus5x.webp' %}" width="120"/>
+        <img src="../static/{{pict}}" width="120">
 
-        <p>Неплохой телефон</p>
+        <p>{{desc}}</p>
         <form method="post" action="./cart/">
           <input type="hidden" name="csrfmiddlewaretoken"
                  value="N4vcBqzjoYkU7OTDuAT8hq8srpvYX44nJsswuP7e3EYg0Hq8DgxuR0eiXWbSr5RZ">

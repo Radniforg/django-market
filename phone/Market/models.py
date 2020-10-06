@@ -53,7 +53,6 @@ class Product(models.Model):
     picture_link = models.CharField(max_length=120)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     information = models.TextField()
-    date = models.DateField(default=date.today())
     timezone = models.DateTimeField(default=timezone.now())
 
     def __str__(self):

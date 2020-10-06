@@ -51,7 +51,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=64)),
                 ('picture_link', models.CharField(max_length=120)),
                 ('information', models.TextField()),
-                ('date', models.DateField(default=datetime.date(2020, 10, 6))),
                 ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='Market.Category')),
             ],
         ),

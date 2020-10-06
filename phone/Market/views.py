@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from Market.models import Product, Category
 # Create your views here.
 
 def cart(request):
@@ -15,7 +15,11 @@ def login(request):
     return render(request, 'login.html')
 
 def phone(request):
-    return render(request, 'phone.html')
+    test_subject = Product.objects.first()
+    return render(request, 'phone.html',
+                  context={'text': test_subject.name,
+                           'pict': test_subject.picture_link,
+                           'desc': test_subject.information},)
 
 def smart(request):
     return render(request, 'smartphones.html')
