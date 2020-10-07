@@ -38,13 +38,27 @@ def cart(request):
         else:
             current_order = cart_check[0]
         cart_inside = current_order.cart_set.all()
+        if request.method == 'POST':
+            merch_id = request.POST['merchandise_id']
+            product = cart_inside.filter(product = merch_id)
+            if product:
+                amount = product[0].amount
+                test = amount + 1
+            if not product:
+                addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
+                addition.save()
+                test = addition.amount
+
+        else:
+            test = 0
     else:
         return redirect('login')
     return render(request, 'cart.html',
                   context={'navi': navigation,
                            'email': email,
                            'order': current_order,
-                           'cart': cart_inside})
+                           'cart': cart_inside,
+                           'test': test})
 
 def empty(request):
     navigation = Category.objects.all()
