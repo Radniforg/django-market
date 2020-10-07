@@ -1,6 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from Market.models import Product, Category, Article
 from django.core.paginator import Paginator
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
+from django.http import HttpResponse
+
+User = get_user_model()
+
 # Create your views here.
 
 def cart(request):
@@ -70,3 +79,24 @@ def smart(request):
                              'next_page_url': next_page,
                              'current_page': current_page
                              })
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = None
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(password=raw_password)
+            login(request)
+            return redirect('index')
+        else:
+            print(form.errors)
+            msg = form.errors
+            return render(request, 'signup.html', {'form': form,
+                                                   'msg': msg})
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+
