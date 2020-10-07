@@ -22,7 +22,7 @@ def login_request(request):
         else:
             msg = f'{user}'
         return HttpResponse(msg)
-    return render(request, 'test.html')
+    return render(request, 'login.html')
 
 def logout_request(request):
     logout(request)
