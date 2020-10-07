@@ -16,5 +16,3 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('first_name', 'last_name', 'email', 'password1', 'password2', )
 
-class LoginForm(AuthenticationForm):
-    email = forms.CharField(label='Email')

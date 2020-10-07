@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from Market.models import Product, Category, Article
+from Market.models import Product, Category, Article, Order, Cart, CustomUser
 from django.core.paginator import Paginator
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
@@ -18,10 +17,9 @@ def login_request(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            msg = f'{user} - {username}  - {password}'
+            return redirect('index')
         else:
-            msg = f'{user}'
-        return HttpResponse(msg)
+            return redirect('login.html')
     return render(request, 'login.html')
 
 def logout_request(request):
@@ -31,8 +29,20 @@ def logout_request(request):
 def cart(request):
     #нужно сделать
     navigation = Category.objects.all()
+    if request.user.is_authenticated:
+        email = request.user.email
+        cart_check = CustomUser.objects.filter(email=email)[0].order_set.filter(status=False)
+        if not cart_check:
+            current_order = Order.objects.create(user_id = CustomUser.objects.filter(email=email)[0].id)
+            current_order.save()
+        else:
+            current_order = cart_check[0]
+    else:
+        return redirect('login')
     return render(request, 'cart.html',
-                  context={'navi': navigation})
+                  context={'navi': navigation,
+                           'email': email,
+                           'order': current_order})
 
 def empty(request):
     navigation = Category.objects.all()
@@ -69,7 +79,8 @@ def phone(request):
                   context={'text': test_subject.name,
                            'pict': test_subject.picture_link,
                            'desc': test_subject.information,
-                           'navi': navigation})
+                           'navi': navigation,
+                           'product_id': test_subject.id})
 
 def smart(request):
     #сюда надо влепить пагинатор, также сменить название шаблона

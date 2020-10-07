@@ -49,7 +49,7 @@
 
     </ul>
     <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="{% url 'cart' %}">
+       href="../cart/">
       Корзина</a>
 
 
@@ -74,18 +74,15 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
-        {% for cat in pretext %}
-          <h3>{{cat.id}}</h3>
-        {% endfor %}
+
         <h2>{{text}}</h2>
 
         <img src="../static/{{pict}}" width="120">
 
         <p>{{desc}}</p>
-        <form method="post" action="./cart/">
-          <input type="hidden" name="csrfmiddlewaretoken"
-                 value="N4vcBqzjoYkU7OTDuAT8hq8srpvYX44nJsswuP7e3EYg0Hq8DgxuR0eiXWbSr5RZ">
-          <input type="hidden" name="merchandise_id" value="1">
+        <form method="post" action="../cart/">
+          {% csrf_token %}
+          <input type="hidden" name="merchandise_id" value="{{product_id}}">
           <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
         </form>
       </div>
