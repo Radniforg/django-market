@@ -63,3 +63,19 @@ class Article(models.Model):
     information = models.TextField()
     date = models.DateTimeField(default=timezone.now())
     products = models.ManyToManyField(Product)
+
+class Order(models.Model):
+    order = models.BooleanField(default= False)
+    products = models.ManyToManyField(Product, through='Cart')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.id
+
+class Cart(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    amount = models.PositiveIntegerField()
+
+    class Meta:
+        unique_together = ('theme', 'article')
