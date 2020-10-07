@@ -90,7 +90,9 @@
         {% endfor %}
       </ul>
 
-      <form class="card p-2">
+      <form class="card p-2" method = "POST" action="../cart/">
+        {% csrf_token %}
+        <input type="hidden" name="verification" value="True">
         <button type="submit" class="btn btn-secondary">Заказать</button>
       </form>
     </div>

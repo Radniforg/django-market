@@ -31,7 +31,7 @@ def cart(request):
     navigation = Category.objects.all()
     if request.user.is_authenticated:
         email = request.user.email
-        cart_check = CustomUser.objects.filter(email=email)[0].order_set.filter(status=False)
+        cart_check = CustomUser.objects.filter(email=email)[0].order_set.filter(status=0)
         if not cart_check:
             current_order = Order.objects.create(user_id = CustomUser.objects.filter(email=email)[0].id)
             current_order.save()
@@ -39,16 +39,21 @@ def cart(request):
             current_order = cart_check[0]
         cart_inside = current_order.cart_set.all()
         if request.method == 'POST':
-            merch_id = request.POST['merchandise_id']
-            product = cart_inside.filter(product = merch_id)
-            if product:
-                product[0].amount = product[0].amount +1
-                product[0].save()
-                test = product[0].amount
-            if not product:
-                addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
-                addition.save()
-                test = addition.amount
+            if request.POST['verification'] == "True":
+                current_order.status = 1
+                current_order.save()
+                return redirect('index')
+            else:
+                merch_id = request.POST['merchandise_id']
+                product = cart_inside.filter(product = merch_id)
+                if product:
+                    product[0].amount = product[0].amount +1
+                    product[0].save()
+                    test = product[0].amount
+                if not product:
+                    addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
+                    addition.save()
+                    test = addition.amount
 
         else:
             test = 0

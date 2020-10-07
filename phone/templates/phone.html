@@ -83,6 +83,7 @@
         <form method="post" action="../cart/">
           {% csrf_token %}
           <input type="hidden" name="merchandise_id" value="{{product_id}}">
+          <input type="hidden" name="verification" value="False">
           <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
         </form>
       </div>
