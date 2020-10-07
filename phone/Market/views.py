@@ -17,7 +17,7 @@ def empty(request):
 def index(request):
     #нужно придумать и настроить выдачу последних n позиций
     navigation = Category.objects.all()
-    article = Article.objects.all()
+    article = Article.objects.all().order_by('-date')
     current_page = int(request.GET.get('page', 1))
     paginator = Paginator(article, 2)
     page = paginator.get_page(current_page)
