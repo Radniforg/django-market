@@ -45,7 +45,7 @@ class Article(models.Model):
     products = models.ManyToManyField(Product)
 
 class Order(models.Model):
-    order = models.BooleanField(default= False)
+    order_status = models.BooleanField(default= False)
     products = models.ManyToManyField(Product, through='Cart')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 

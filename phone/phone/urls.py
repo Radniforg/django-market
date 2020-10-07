@@ -23,10 +23,12 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),
     path('empty_section/', views.empty, name='empty_section'),
     path('', views.index, name='index'),
-    path('login/', views.login, name='login'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('phone/', views.phone, name='phone'),
     path('sign/', views.signup, name='sign_up'),
     path('smartphones/', views.smart, name='smartphones'),
     path('error/', views.smart, name='error'),
+    path('test/', views.login_request, name='test'),
+    path('tset/', views.logout_request, name='tset')
 ]

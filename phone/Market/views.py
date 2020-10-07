@@ -3,14 +3,30 @@ from Market.models import Product, Category, Article
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from .forms import SignUpForm
+from .forms import SignUpForm, LoginForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
 
 User = get_user_model()
 
 # Create your views here.
+def login_request(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            msg = f'{user} - {username}  - {password}'
+        else:
+            msg = f'{user}'
+        return HttpResponse(msg)
+    return render(request, 'test.html')
+
+def logout_request(request):
+    logout(request)
+    return redirect('index')
 
 def cart(request):
     #нужно сделать
@@ -43,8 +59,7 @@ def index(request):
                            'current_page': current_page
                            })
 
-def login(request):
-    return render(request, 'login.html')
+
 
 def phone(request):
     product = request.GET.get('product')
