@@ -67,20 +67,24 @@
     <div class="container">
       <h1 class="display-4">{{article.title}}</h1>
       <p>{{article.information}}</p>
+
+        <h2>{{product.name}}</h2>
+
     </div>
   </div>
 
 
   <div class="container mb-5">
+
     <!-- Example row of columns -->
     <div class="row">
-
+      {% for product in article.products.all %}
       <div class="col-md-4">
-        <h2>Nexus 5x</h2>
+        <h2>{{product.name}}</h2>
 
-        <a href="./phone">
+        <a href="./phone?product={{product.id}}">
 
-          <img src="./static/nexus5x.webp" width="180">
+          <img src="./static/{{product.picture_link}}" width="180">
 
         </a>
 
@@ -88,41 +92,20 @@
           <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
         </form>
       </div>
-
-      <div class="col-md-4">
-        <h2>iPhone 7</h2>
-
-        <a href="./phone">
-
-          <img src="./static/iphone7.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
-      <div class="col-md-4">
-        <h2>Pixel 2</h2>
-
-        <a href="./phone">
-
-          <img src="./static/pixel2.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
+      {% endfor %}
     </div>
   </div> <!-- /container -->
   {% endfor %}
+
+  <div class="container mb-5">
+    {% if prev_page_url %}<a class="button button-primary" href="{{ prev_page_url }}">⟵</a>{% endif %}
+    <a class="button disabled" href="">{{ current_page }}</a>
+    {% if next_page_url %}<a class="button button-primary" href="{{ next_page_url }}">⟶</a>{% endif %}
+  </div> <!-- /container -->
 </main>
 
 <hr>
+
 <footer class="container">
   <p>© Просто магазин 2018</p>
 </footer>
