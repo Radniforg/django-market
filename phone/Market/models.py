@@ -60,6 +60,6 @@ class Product(models.Model):
     
 class Article(models.Model):
     title = models.CharField(max_length=128)
-    information = models.TextField
+    information = models.TextField()
     date = models.DateTimeField(default=timezone.now())
     products = models.ManyToManyField(Product)
