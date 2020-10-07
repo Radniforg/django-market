@@ -37,12 +37,14 @@ def cart(request):
             current_order.save()
         else:
             current_order = cart_check[0]
+        cart_inside = current_order.cart_set.all()
     else:
         return redirect('login')
     return render(request, 'cart.html',
                   context={'navi': navigation,
                            'email': email,
-                           'order': current_order})
+                           'order': current_order,
+                           'cart': cart_inside})
 
 def empty(request):
     navigation = Category.objects.all()
