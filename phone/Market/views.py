@@ -42,8 +42,9 @@ def cart(request):
             merch_id = request.POST['merchandise_id']
             product = cart_inside.filter(product = merch_id)
             if product:
-                amount = product[0].amount
-                test = amount + 1
+                product[0].amount = product[0].amount +1
+                product[0].save()
+                test = product[0].amount
             if not product:
                 addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
                 addition.save()
