@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from Market.models import Product, Category
+from django.core.paginator import Paginator
 # Create your views here.
 
 def cart(request):
+    #нужно сделать
     navigation = Category.objects.all()
     return render(request, 'cart.html',
                   context={'navi': navigation})
@@ -13,6 +15,7 @@ def empty(request):
                   context={'navi': navigation})
 
 def index(request):
+    #нужно придумать и настроить выдачу последних n позиций
     navigation = Category.objects.all()
     return render(request, 'index.html',
                   context={'navi': navigation})
@@ -31,6 +34,7 @@ def phone(request):
                            'navi': navigation})
 
 def smart(request):
+    #сюда надо влепить пагинатор, также сменить название шаблона
     product = request.GET.get('category')
     test_subject = Product.objects.filter(category_id= product)
     navigation = Category.objects.all()
