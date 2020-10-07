@@ -37,9 +37,25 @@ def smart(request):
     #сюда надо влепить пагинатор, также сменить название шаблона
     product = request.GET.get('category')
     test_subject = Product.objects.filter(category_id= product)
+    subject_list = []
+    for subject in test_subject:
+        subject_list.append(subject)
     navigation = Category.objects.all()
-    category_name = Category.objects.get(id= product)
+    category_name = Category.objects.get(id=product)
+    current_page = int(request.GET.get('page', 1))
+    paginator = Paginator(test_subject, 1)
+    page = paginator.get_page(current_page)
+    prev_page, next_page = None, None
+    if page.has_previous():
+        prev_page = f'?category={product}&page={page.previous_page_number()}'
+    if page.has_next():
+        next_page = f'?category={product}&page={page.next_page_number()}'
+
     return render(request, 'smartphones.html',
-                  context = {'test': test_subject,
+                  context = {'test': page,
                              'category': category_name,
-                             'navi': navigation})
+                             'navi': navigation,
+                             'prev_page_url': prev_page,
+                             'next_page_url': next_page,
+                             'current_page': current_page
+                             })
