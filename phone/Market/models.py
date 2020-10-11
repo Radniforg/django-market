@@ -33,7 +33,6 @@ class Product(models.Model):
     picture_link = models.CharField(max_length=120)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     information = models.TextField()
-    timezone = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
         return self.name
@@ -44,14 +43,20 @@ class Article(models.Model):
     date = models.DateTimeField(default=timezone.now())
     products = models.ManyToManyField(Product)
 
+    def __str__(self):
+        return self.title
+
 class Order(models.Model):
     status = models.BooleanField(default=False)
-    creation = models.DateTimeField(default=timezone.now())
+    creation = models.DateTimeField()
     products = models.ManyToManyField(Product, through='Cart')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.id)
+        if self.status == 1:
+            return f'Order #{self.id}: {self.user} - {self.creation}'
+        else:
+            return f'{self.user} current cart'
 
 class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
