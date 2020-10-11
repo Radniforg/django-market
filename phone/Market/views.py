@@ -54,16 +54,19 @@ def cart(request):
                 product = cart_inside.filter(product = merch_id)
                 if product:
                     product[0].amount = product[0].amount +1
+                    total += 1
                     product[0].save()
                 if not product:
                     addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
+                    total += 1
                     addition.save()
+            cart_inside = current_order.cart_set.all()
+        return render(request, 'cart.html',
+                      context={'navi': navigation,
+                               'cart': cart_inside,
+                               'total': total})
     else:
         return redirect('login')
-    return render(request, 'cart.html',
-                  context={'navi': navigation,
-                           'cart': cart_inside,
-                           'total': total})
 
 def empty(request):
     navigation = Category.objects.all()

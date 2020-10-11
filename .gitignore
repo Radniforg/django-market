@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 smol.txt
+*.sqlite3
 env/
 
 ### Project specific ###
