@@ -3,9 +3,7 @@ from Market.models import Product, Category, Article, Order, Cart, CustomUser
 from django.core.paginator import Paginator
 from django.contrib.auth import get_user_model
 from .forms import SignUpForm
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from django.http import HttpResponse
 from django.utils import timezone
 
 User = get_user_model()
@@ -97,23 +95,23 @@ def index(request):
 
 def phone(request):
     product = request.GET.get('product')
-    test_subject = Product.objects.get(id= product)
+    current_product = Product.objects.get(id= product)
     navigation = Category.objects.all()
     return render(request, 'phone.html',
-                  context={'text': test_subject.name,
-                           'pict': test_subject.picture_link,
-                           'desc': test_subject.information,
+                  context={'text': current_product.name,
+                           'pict': current_product.picture_link,
+                           'desc': current_product.information,
                            'navi': navigation,
-                           'product_id': test_subject.id})
+                           'product_id': current_product.id})
 
-def smart(request):
+def category(request):
     #сюда надо влепить пагинатор, также сменить название шаблона
     product = request.GET.get('category')
     test_subject = Product.objects.filter(category_id= product)
     navigation = Category.objects.all()
     category_name = Category.objects.get(id=product)
     current_page = int(request.GET.get('page', 1))
-    paginator = Paginator(test_subject, 1)
+    paginator = Paginator(test_subject, 2)
     page = paginator.get_page(current_page)
     prev_page, next_page = None, None
     if page.has_previous():
@@ -121,7 +119,7 @@ def smart(request):
     if page.has_next():
         next_page = f'?category={product}&page={page.next_page_number()}'
 
-    return render(request, 'smartphones.html',
+    return render(request, 'category.html',
                   context = {'test': page,
                              'category': category_name,
                              'navi': navigation,

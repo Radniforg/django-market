@@ -25,8 +25,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('phone/', views.phone, name='phone'),
     path('sign/', views.signup, name='sign_up'),
-    path('smartphones/', views.smart, name='smartphones'),
-    path('error/', views.smart, name='error'),
+    path('category/', views.category, name='category'),
     path('login/', views.login_request, name='login'),
     path('logout/', views.logout_request, name='logout')
 ]
