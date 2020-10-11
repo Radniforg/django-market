@@ -6,6 +6,7 @@ from .forms import SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -41,6 +42,7 @@ def cart(request):
         if request.method == 'POST':
             if request.POST['verification'] == "True":
                 current_order.status = 1
+                current_order.creation = timezone.now
                 current_order.save()
                 return redirect('index')
             else:
