@@ -68,15 +68,12 @@
 
 
 <div class="container mt-3">
-  <h3>{{email}}</h3>
-  <h2>{{order}}</h2>
-  <h3>{{test}}</h3>
 
   <div class="row">
     <div class="col-lg-6 col-md-9 col-sm-12 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">Ваша корзина</span>
-        <span class="badge badge-secondary badge-pill">{{cart.count}}</span>
+        <span class="badge badge-secondary badge-pill">{{total}}</span>
       </h4>
       <ul class="list-group mb-3">
         {% for good in cart %}

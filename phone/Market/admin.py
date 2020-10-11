@@ -34,7 +34,21 @@ class CategoryAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     pass
 
+class RelationshipInline(admin.TabularInline):
+    model = Cart
+    can_delete = False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "creation", "status", "total")
+    readonly_fields = ("id", "user", "creation", "status", "total")
+    inlines = [RelationshipInline]
+
+    def has_add_permission(self, request, obj=None):
+        return False

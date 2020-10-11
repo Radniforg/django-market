@@ -79,3 +79,4 @@ class Cart(models.Model):
 
     class Meta:
         unique_together = ('product', 'order')
+        verbose_name_plural = 'Корзина'

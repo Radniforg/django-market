@@ -58,17 +58,12 @@ def cart(request):
                 if not product:
                     addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
                     addition.save()
-
-        else:
-            test = 0
     else:
         return redirect('login')
     return render(request, 'cart.html',
                   context={'navi': navigation,
-                           'email': email,
-                           'order': current_order,
                            'cart': cart_inside,
-                           'test': total})
+                           'total': total})
 
 def empty(request):
     navigation = Category.objects.all()
