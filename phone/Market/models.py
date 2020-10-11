@@ -27,6 +27,8 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Категории'
 
 class Product(models.Model):
     name = models.CharField(max_length=64)
@@ -36,7 +38,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+    class Meta:
+        verbose_name_plural = 'Товары'
+
+
 class Article(models.Model):
     title = models.CharField(max_length=128)
     information = models.TextField()
@@ -46,17 +52,25 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = 'Статьи'
+
 class Order(models.Model):
     status = models.BooleanField(default=False)
-    creation = models.DateTimeField()
+    creation = models.DateTimeField(blank=True, null=True)
     products = models.ManyToManyField(Product, through='Cart')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    total = models.IntegerField(null=True)
 
     def __str__(self):
         if self.status == 1:
-            return f'Order #{self.id}: {self.user} - {self.creation}'
+            return f'Order #{str(self.id)}'
         else:
-            return f'{self.user} current cart'
+            return f'{str(self.user)} current cart'
+
+    class Meta:
+        verbose_name_plural = 'Заказы'
+        ordering = ('-creation', )
 
 class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

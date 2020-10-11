@@ -39,10 +39,14 @@ def cart(request):
         else:
             current_order = cart_check[0]
         cart_inside = current_order.cart_set.all()
+        total = 0
+        for test_product in cart_inside:
+            total += test_product.amount
         if request.method == 'POST':
             if request.POST['verification'] == "True":
                 current_order.status = 1
-                current_order.creation = timezone.now
+                current_order.creation = timezone.now()
+                current_order.total = total
                 current_order.save()
                 return redirect('index')
             else:
@@ -51,11 +55,9 @@ def cart(request):
                 if product:
                     product[0].amount = product[0].amount +1
                     product[0].save()
-                    test = product[0].amount
                 if not product:
                     addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
                     addition.save()
-                    test = addition.amount
 
         else:
             test = 0
@@ -66,7 +68,7 @@ def cart(request):
                            'email': email,
                            'order': current_order,
                            'cart': cart_inside,
-                           'test': test})
+                           'test': total})
 
 def empty(request):
     navigation = Category.objects.all()

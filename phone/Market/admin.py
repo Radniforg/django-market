@@ -37,4 +37,4 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("id", "user", "creation", "status", "total")
