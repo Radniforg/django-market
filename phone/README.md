@@ -7,7 +7,7 @@
     * _pip install -r requirements.txt_
 - Провести миграцию Django командой:
     * _python manage.py migrate_
-- _При необходимости_ загрузить тестовые данные командой:
+- Загрузить тестовые данные командой:
     * _python manage.py loaddata fixtures.json_
 - Запустить отладочный веб-сервер проекта командой:
     * _python manage.py runserver_
