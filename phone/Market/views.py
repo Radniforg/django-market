@@ -32,7 +32,8 @@ def cart(request):
         email = request.user.email
         cart_check = CustomUser.objects.filter(email=email)[0].order_set.filter(status=0)
         if not cart_check:
-            current_order = Order.objects.create(user_id = CustomUser.objects.filter(email=email)[0].id)
+            current_order = Order.objects.create(user_id =
+                                                 CustomUser.objects.filter(email=email)[0].id)
             current_order.save()
         else:
             current_order = cart_check[0]
@@ -55,7 +56,9 @@ def cart(request):
                     total += 1
                     product[0].save()
                 if not product:
-                    addition = Cart.objects.create(product_id = merch_id, order_id = current_order.id, amount = 1)
+                    addition = Cart.objects.create(product_id = merch_id,
+                                                   order_id = current_order.id,
+                                                   amount = 1)
                     total += 1
                     addition.save()
             cart_inside = current_order.cart_set.all()

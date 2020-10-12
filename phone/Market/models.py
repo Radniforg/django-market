@@ -32,7 +32,8 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=64)
     picture_link = models.CharField(max_length=120)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                                 blank=True, null=True)
     information = models.TextField()
 
     def __str__(self):
