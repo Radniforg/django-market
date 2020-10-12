@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from Market.models import Product, Category, Article, Order, Cart, CustomUser
 from django.core.paginator import Paginator
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from .forms import SignUpForm
 from django.contrib.auth import login, authenticate, logout
 from django.utils import timezone
@@ -18,7 +19,8 @@ def login_request(request):
             login(request, user)
             return redirect('index')
         else:
-            return redirect('login.html')
+            messages.error(request,'username or password not correct')
+            return redirect('login')
     return render(request, 'login.html')
 
 def logout_request(request):
