@@ -4,9 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from .managers import CustomUserManager
 
-# Create your models here.
-
-
 
 class CustomUser(AbstractUser):
     username = None
@@ -20,6 +17,7 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
+
 class Category(models.Model):
     name = models.CharField(max_length=64)
 
@@ -28,6 +26,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Категории'
+
 
 class Product(models.Model):
     name = models.CharField(max_length=64)
@@ -55,6 +54,7 @@ class Article(models.Model):
     class Meta:
         verbose_name_plural = 'Статьи'
 
+
 class Order(models.Model):
     status = models.BooleanField(default=False)
     creation = models.DateTimeField(blank=True, null=True)
@@ -71,6 +71,7 @@ class Order(models.Model):
     class Meta:
         verbose_name_plural = 'Заказы'
         ordering = ('-creation', )
+
 
 class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

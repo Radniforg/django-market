@@ -9,7 +9,7 @@ from django.utils import timezone
 
 User = get_user_model()
 
-# Create your views here.
+
 def login_request(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -19,23 +19,23 @@ def login_request(request):
             login(request, user)
             return redirect('index')
         else:
-            messages.error(request,'username or password not correct')
+            messages.error(request, 'username or password not correct')
             return redirect('login')
     return render(request, 'login.html')
+
 
 def logout_request(request):
     logout(request)
     return redirect('index')
 
+
 def cart(request):
-    #нужно сделать
     navigation = Category.objects.all()
     if request.user.is_authenticated:
         email = request.user.email
         cart_check = CustomUser.objects.filter(email=email)[0].order_set.filter(status=0)
         if not cart_check:
-            current_order = Order.objects.create(user_id =
-                                                 CustomUser.objects.filter(email=email)[0].id)
+            current_order = Order.objects.create(user_id=CustomUser.objects.filter(email=email)[0].id)
             current_order.save()
         else:
             current_order = cart_check[0]
@@ -52,15 +52,15 @@ def cart(request):
                 return redirect('index')
             else:
                 merch_id = request.POST['merchandise_id']
-                product = cart_inside.filter(product = merch_id)
+                product = cart_inside.filter(product=merch_id)
                 if product:
-                    product[0].amount = product[0].amount +1
+                    product[0].amount = product[0].amount + 1
                     total += 1
                     product[0].save()
                 if not product:
-                    addition = Cart.objects.create(product_id = merch_id,
-                                                   order_id = current_order.id,
-                                                   amount = 1)
+                    addition = Cart.objects.create(product_id=merch_id,
+                                                   order_id=current_order.id,
+                                                   amount=1)
                     total += 1
                     addition.save()
             cart_inside = current_order.cart_set.all()
@@ -71,13 +71,14 @@ def cart(request):
     else:
         return redirect('login')
 
+
 def empty(request):
     navigation = Category.objects.all()
     return render(request, 'empty_section.html',
                   context={'navi': navigation})
 
+
 def index(request):
-    #нужно придумать и настроить выдачу последних n позиций
     navigation = Category.objects.all()
     article = Article.objects.all().order_by('-date')
     current_page = int(request.GET.get('page', 1))
@@ -97,10 +98,9 @@ def index(request):
                            })
 
 
-
 def phone(request):
     product = request.GET.get('product')
-    current_product = Product.objects.get(id= product)
+    current_product = Product.objects.get(id=product)
     navigation = Category.objects.all()
     return render(request, 'phone.html',
                   context={'text': current_product.name,
@@ -109,10 +109,10 @@ def phone(request):
                            'navi': navigation,
                            'product_id': current_product.id})
 
+
 def category(request):
-    #сюда надо влепить пагинатор, также сменить название шаблона
     product = request.GET.get('category')
-    test_subject = Product.objects.filter(category_id= product)
+    test_subject = Product.objects.filter(category_id=product)
     navigation = Category.objects.all()
     category_name = Category.objects.get(id=product)
     current_page = int(request.GET.get('page', 1))
@@ -125,13 +125,13 @@ def category(request):
         next_page = f'?category={product}&page={page.next_page_number()}'
 
     return render(request, 'category.html',
-                  context = {'test': page,
-                             'category': category_name,
-                             'navi': navigation,
-                             'prev_page_url': prev_page,
-                             'next_page_url': next_page,
-                             'current_page': current_page
-                             })
+                  context={'test': page,
+                           'category': category_name,
+                           'navi': navigation,
+                           'prev_page_url': prev_page,
+                           'next_page_url': next_page,
+                           'current_page': current_page
+                           })
 
 
 def signup(request):
@@ -152,4 +152,3 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-
